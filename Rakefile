@@ -13,23 +13,10 @@ task :default => :all
 
 task :all => [:generate_report]
 
-# projects
+# define projects
 projects = {
-  "stats-app"         => "https://subversion.lib.virginia.edu/repos/slab_rd/stats-app/",
-  "faulkner"          => "https://subversion.lib.virginia.edu/repos/faulkner/trunk/",
-  "metaphors"         => "https://subversion.lib.virginia.edu/repos/mind_is_a_metaphor/trunk/",
-  "salem"             => "https://subversion.lib.virginia.edu/repos/salem/trunk/branch/",
-  "cbw"               => "https://subversion.lib.virginia.edu/repos/cbw/trunk",
-  "coins"             => "https://subversion.lib.virginia.edu/repos/coins",
-  "prosody"           => "https://subversion.lib.virginia.edu/repos/prosody",
-  "fedora_connector"  => "https://addons.omeka.org/svn/plugins/FedoraConnector/trunk",
-  "quandu_bridge"     => "https://subversion.lib.virginia.edu/repos/sds-deployer/trunk",
-  "omeka"             => "https://subversion.lib.virginia.edu/repos/slab_rd/omeka/trunk/",
-  "neatline_features" => "https://addons.omeka.org/svn/plugins/NeatlineFeatures/trunk/",
-  "neatline_maps"     => "https://addons.omeka.org/svn/plugins/NeatlineMaps/trunk/",
-  "ead_importer"      => "https://addons.omeka.org/svn/plugins/NeatlineFeatures/trunk/",
-  "solr_search"       => "https://addons.omeka.org/svn/plugins/SolrSearch/trunk/", 
-  "geoportal"         => "https://subversion.lib.virginia.edu/repos/slab_rd/geoportal"
+  "omeka"     => "https://omeka.org/svn/trunk/",
+  "solrmarc"  => "https://solrmarc.googlecode.com/svn/trunk/"
 }
 
 desc 'Remove all the created directories'
