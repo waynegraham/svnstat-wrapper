@@ -2,7 +2,7 @@
 
 === For impatient types
 
-  git clone git@github.com:waynegraham/svnstat-wrapper.git
+  git clone git://github.com/waynegraham/svnstat-wrapper.git
   cd svnstat-wrapper
   rake
 
