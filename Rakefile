@@ -10,7 +10,7 @@ SVNSTATS_COMMAND  = "java -Xmx512m -Xmn512m -XX:+UseParallelGC -jar #{BASE_DIR}/
 SVN_DIRNAME       = 'svn_files'
 
 CONFIG_FILES      = FileList['config/projects.yml']
-OUTPUT_FILE       ='index.html'
+OUTPUT_FILE       = 'index.html'
 TEMPLATE_FILE     = 'template.html.erb'
 
 task :default => :all
@@ -28,6 +28,10 @@ task :clean do
     puts "Deleting #{project} files".colorize(:yellow)
     FileUtils.rm_rf("#{BASE_DIR}/#{project}")
   }
+  if File.exist? "#{BASE_DIR}/#{OUTPUT_FILE}"
+    puts "Cleaning up generated report".colorize(:red)
+    FileUtils.rm("#{BASE_DIR}/#{OUTPUT_FILE}")
+  end
 end
 
 desc 'Clean up the subversion directories (for compressing reports)'
