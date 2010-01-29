@@ -1,19 +1,35 @@
 == SVNStat-wrapper
 
-This is a rake task that allows you to generate statsvn[http://www.statsvn.org/] reports. For your projects, simply edit the Rakefile with a project key and repo in the projects hash: 
+=== For impatient types
 
-  projects = {
-	"omeka"     => "https://omeka.org/svn/trunk/",
-	"solrmarc"  => "https://solrmarc.googlecode.com/svn/trunk/"
-  }
+  git clone git@github.com:waynegraham/svnstat-wrapper.git
+  cd svnstat-wrapper
+  rake
 
-== Usage
-There is one gem dependency on ''colorize''
+== Defining Projects
+
+This is a rake task that allows you to generate statsvn[http://www.statsvn.org/] reports for your projects. To define projects, edit the config/projects.yml file with your project definitions. 
+
+  projects:
+	omeka: https://omeka.org/svn/trunk/
+	solrmarc: https://solrmarc.googlecode.com/svn/trunk/
+
+== Dependencies
+I've included the statsvn.jar file from the statsvn[http://www.statsvn.org/] (GNU License) so you do not need to get that.
+
+I did add support for colors in the text output so thereis one gem dependency on ''colorize''. Installation is easy:
 
   sudo gem install colorize
 
-After you've installed the software, you can view the different tasks with
+After you install colorize, you should be ready to roll.
 
-  rake -T
+== Running the Software
+This is pretty simple, just go in to the svtstats-wrapper directory and run
+
+  rake
 
 By just running rake without any specific tasks, you will build a report for each project listed and a handy (crudely written) page for navigating the different projects.
+
+For a full listing of tasks and what they do:
+
+  rake -T
