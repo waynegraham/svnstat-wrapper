@@ -1,13 +1,16 @@
 require 'rubygems'
 require 'colorize'
 
-BASE_DIR = Dir.getwd
+BASE_DIR          = Dir.getwd
 
-LOGFILE = "logfile.log"
+# StatSVN 
+LOGFILE           = "logfile.log"
+SVNLOG_COMMAND    = "svn log -v --xml > #{LOGFILE}"
+SVNSTATS_COMMAND  = "java -Xmx512m -Xmn512m -XX:+UseParallelGC -jar #{BASE_DIR}/statsvn.jar"
+SVN_DIRNAME       = 'svn_files'
 
-SVNLOG_COMMAND = "svn log -v --xml > #{LOGFILE}"
-SVNSTATS_COMMAND = "java -Xmx512m -Xmn512m -XX:+UseParallelGC -jar #{BASE_DIR}/statsvn.jar"
-SVN_DIRNAME = 'svn_files'
+OUTPUT_FILE       ='index.html'
+TEMPLATE_FILE     = 'template.html.erb'
 
 task :default => :all
 
@@ -24,7 +27,8 @@ task :clean do
   puts "Cleaning up project directories".colorize(:red)
   projects.each{|project, repo|
     puts "Deleting #{project} files".colorize(:yellow)
-    FileUtils.rm_rf("#{BASE_DIR}/#{project}")
+    #FileUtils.rm_rf("#{BASE_DIR}/#{project}")
+    CLOBBER.include()
   }
 end
 
