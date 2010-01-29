@@ -9,6 +9,7 @@ SVNLOG_COMMAND    = "svn log -v --xml > #{LOGFILE}"
 SVNSTATS_COMMAND  = "java -Xmx512m -Xmn512m -XX:+UseParallelGC -jar #{BASE_DIR}/statsvn.jar"
 SVN_DIRNAME       = 'svn_files'
 
+CONFIG_FILES      = FileList['config/projects.yml']
 OUTPUT_FILE       ='index.html'
 TEMPLATE_FILE     = 'template.html.erb'
 
@@ -16,19 +17,16 @@ task :default => :all
 
 task :all => [:generate_report]
 
-# define projects
-projects = {
-  "omeka"     => "https://omeka.org/svn/trunk/",
-  "solrmarc"  => "https://solrmarc.googlecode.com/svn/trunk/"
-}
+# load the projects.yml file
+projects_def = YAML.load_file("#{CONFIG_FILES}")
+projects = projects_def['projects']
 
 desc 'Remove all the created directories'
 task :clean do
   puts "Cleaning up project directories".colorize(:red)
   projects.each{|project, repo|
     puts "Deleting #{project} files".colorize(:yellow)
-    #FileUtils.rm_rf("#{BASE_DIR}/#{project}")
-    CLOBBER.include()
+    FileUtils.rm_rf("#{BASE_DIR}/#{project}")
   }
 end
 
@@ -121,6 +119,7 @@ task :build_report => [:build_subdirs, :update_svn, :generate_logfile] do
   }
   
 end
+
 
 desc 'Create a page for displaying each of project\'s report'
 task :generate_report => [:build_subdirs, :update_svn, :generate_logfile, :build_report] do 
