@@ -3,11 +3,60 @@
 <html>
 <head>
    <title>SVNStat Report</title>
-   <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css"d>
+   <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+<style type="text/css">
+#title {
+	background-color: #2e3131;
+	color: #888;
+	height: 176px;
+	margin: 0 0 0 -20px;
+	position: relative;
+}
+
+#contact {
+	height: 42px;
+	line-height: 42px;
+	background-color: #222525;
+	text-align: right;
+}
+
+#contact a:link, #contact a:visited, #ft a:link, #ft a:visited {
+	color: #636363;
+	display: inline-block;
+	font-family, Helvetica, Arial, sans-serif;
+	font-size: 10px;
+	height: 42px;
+	letter-spacing: 0;
+	text-decoration: none;
+}
+
+#contact a:hover { color: #ccc;}
+
+#hd h1 {
+	bottom: 20px;
+	left: 20px;
+	position: absolute;
+	color: white;
+	font-family: "Helvetica Neue Bold", Helvetica, Arial, sans-serif;
+	font-size: 30px;
+	letter-spacing: 0;
+	line-height: 100%;
+}
+
+#ft {
+	background-color: #2e3131;
+	color: #636363;
+	height: 176px;
+	padding-top: 20px;
+}
+</style>
 </head>
 <body>
 <div id="doc" class="yui-t7">
-   <div id="hd" role="banner"><h1>SVNStat Reports</h1></div>
+   	<div id="hd" role="banner">
+		<div id="contact"><a href="http://www.scholarslab.org">scholars lab</a></div>
+		<div id="title"><h1>SVNStat Reports</h1></div>
+	</div>
    <div id="bd" role="main">
 	<div class="yui-g">
 		<h1>Projects</h1>
