@@ -1,0 +1,23 @@
+##
+# User Details
+# user.[svnUserName].replacedBy=[new CVS user name] <-- user name that replaces the user (merge!)
+#
+# user.[svnUserName].realName=[user real name]
+# user.[svnUserName].url=[user homepage full url]
+# user.[svnUserName].image=[url to user picture]
+# user.[svnUserName].email=[user email]
+# user.[svnUserName].twitterUsername=[Twitter userName]
+# user.[svnUserName].twitterUserId=[user twitter id, an int!] <-- This is more difficult to find, see the Twitter API section
+# user.[svnUserName].twitterIncludeHtml=true/false < -- Typically you'd chose html OR flash
+# user.[svnUserName].twitterIncludeFlash=true/false
+
+# Example
+user.wsg4w.realName=Wayne Graham
+user.wsg4w.url=http://www.scholarslab.org
+user.wsg4w.image=http://en.gravatar.com/userimage/172822/aba4b0d0fd4be5639ec8c54ca4a1fd2a.png
+user.wsg4w.email=
+user.wsg4w.twitterUsername=wayne_graham
+user.wsg4w.twitterUserId=16896046
+user.wsg4w.twitterIncludeHtml=true
+user.wsg4w.twitterIncludeFlash=true
+
