@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'colorize'
+require 'erb'
 
 BASE_DIR          = Dir.getwd
 
@@ -124,38 +125,13 @@ task :build_report => [:build_subdirs, :update_svn, :generate_logfile] do
   
 end
 
-
-desc 'Create a page for displaying each of project\'s report'
+desc 'Generate navigation page from ERB template'
 task :generate_report => [:build_subdirs, :update_svn, :generate_logfile, :build_report] do 
-  puts "Generating SVNStats Navigation page".colorize(:red)
+  #template = ERB.new(IO.readlines(TEMPLATE_FILE)).to_s
+  template = ERB.new(File.read(TEMPLATE_FILE))
   
-  head = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-  <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-  	<title>SVNStat Project Navigation Page</title>
-
-  </head>
-
-  <body>
-  <h1>SVN Statistics Report</h1>
-  '
+  File.open("#{BASE_DIR}/#{OUTPUT_FILE}", 'w'){ |f| f.write(template.result(binding))}
   
-  body = '<ul>'
-  
-  projects.each{|project, repo|
-    body += "<li><a href='#{project}/index.html'>#{project.capitalize}</a></li>"
-  }
-  
-  body += '</ul>'
-  
-  foot = '</body></html>'
-  
-  
-  File.open("#{BASE_DIR}/index.html", 'w'){|f| f.write(head + body + foot)}
   puts "Finished report page. \n\tYou can access the project reports by opeing in #{Dir.getwd}/index.html".colorize(:green)
 end
 
