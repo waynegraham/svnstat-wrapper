@@ -127,11 +127,9 @@ end
 
 desc 'Generate navigation page from ERB template'
 task :generate_report => [:build_subdirs, :update_svn, :generate_logfile, :build_report] do 
-  #template = ERB.new(IO.readlines(TEMPLATE_FILE)).to_s
   template = ERB.new(File.read(TEMPLATE_FILE))
   
   File.open("#{BASE_DIR}/#{OUTPUT_FILE}", 'w'){ |f| f.write(template.result(binding))}
-  
   puts "Finished report page. \n\tYou can access the project reports by opeing in #{Dir.getwd}/index.html".colorize(:green)
 end
 
