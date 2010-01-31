@@ -13,6 +13,12 @@ This is a rake task that allows you to generate statsvn[http://www.statsvn.org/]
   projects:
 	omeka: https://omeka.org/svn/trunk/
 	solrmarc: https://solrmarc.googlecode.com/svn/trunk/
+	
+== Defining SVNStat Options
+
+You can customize the chart options in the generated project reports by editing the config/svnstat.conf file. This is nice as you can replace names with svn usernames, and add in some Twitter information, as well as some branding images for your report.
+
+As a short note, the user.[svnUserId].twitterUserId is a little difficult to find. On the Twitter user's page, find the RSS link on the page (they've moved this since their documentation is a bit outdated). When I looked for it, it was on the right-hand side at the bottom. When you hover over the link, you'll see a link with a number at the end...that's the twitterUserId. 
 
 == Dependencies
 I've included the statsvn.jar file from the statsvn[http://www.statsvn.org/] (GNU License) so you do not need to get that.
