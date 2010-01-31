@@ -7,8 +7,9 @@ BASE_DIR          = Dir.getwd
 # StatSVN 
 LOGFILE           = "logfile.log"
 SVNLOG_COMMAND    = "svn log -v --xml > #{LOGFILE}"
-SVNSTATS_COMMAND  = "java -Xmx512m -Xmn512m -XX:+UseParallelGC -jar #{BASE_DIR}/statsvn.jar"
+SVNSTATS_COMMAND  = "java -Xmx512m -Xmn512m -XX:+UseParallelGC -jar #{BASE_DIR}/statsvn.jar -verbose "
 SVN_DIRNAME       = 'svn_files'
+SVNSTAT_CONFIG    = "#{BASE_DIR}/config/svnstat.conf"
 
 CONFIG_FILES      = FileList['config/projects.yml']
 OUTPUT_FILE       = 'index.html'
@@ -49,7 +50,7 @@ end
 desc 'Create a package of the reports'
 task :package => :clean_svn do
   puts "Packaging report".colorize(:red)
-  system ("tar -cvpzf statsvn_report.tar.gz --exclude=statsvn_report.tar.gz --exclude=readme.txt --exclude=Rakefile --exclude=statsvn.jar ./")
+  system ("tar -cvpzf statsvn_report.tar.gz --exclude=statsvn_report.tar.gz --exclude=svnstat_readme.txt --exclude=config --exclude=Rakefile --exclude=statsvn.jar ./")
   puts "Finished packaging and compressing #{BASE_DIR}/statsvn_report.tar.gz".colorize(:green)
 end
 
@@ -120,14 +121,27 @@ task :build_report => [:build_subdirs, :update_svn, :generate_logfile] do
     project_svn = "#{project_dir}/#{SVN_DIRNAME}"
     
     puts "Generating SVNStats report for #{project}".colorize(:green)
-    system "#{SVNSTATS_COMMAND} #{project_svn}/#{LOGFILE} #{project_svn}"
+    system "#{SVNSTATS_COMMAND} -title #{project} -config-file #{SVNSTAT_CONFIG} #{project_svn}/#{LOGFILE} #{project_svn}"
   }
   
 end
 
 desc 'Generate navigation page from ERB template'
 task :generate_report => [:build_subdirs, :update_svn, :generate_logfile, :build_report] do 
-  template = ERB.new(File.read(TEMPLATE_FILE))
+  timestamp =  Time.now.strftime("%a, %d %b %Y, %l:%M%P").squeeze(' ')
+  
+  template = ERB.new(File.read("#{BASE_DIR}/#{TEMPLATE_FILE}"))
+  
+  File.open("#{BASE_DIR}/#{OUTPUT_FILE}", 'w'){ |f| f.write(template.result(binding))}
+  puts "Finished report page. \n\tYou can access the project reports by opeing in #{Dir.getwd}/index.html".colorize(:green)
+end
+
+desc 'Generate navigation page from ERB template'
+task :generate_nav_only do 
+  
+  timestamp =  Time.now.strftime("%a, %d %b %Y, %l:%M%P").squeeze(' ')
+  
+  template = ERB.new(File.read("#{BASE_DIR}/#{TEMPLATE_FILE}"))
   
   File.open("#{BASE_DIR}/#{OUTPUT_FILE}", 'w'){ |f| f.write(template.result(binding))}
   puts "Finished report page. \n\tYou can access the project reports by opeing in #{Dir.getwd}/index.html".colorize(:green)
