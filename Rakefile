@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'colorize'
 require 'erb'
+require 'yaml'
 
 BASE_DIR          = Dir.getwd
 
